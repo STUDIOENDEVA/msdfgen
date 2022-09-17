@@ -5,10 +5,9 @@ project "msdfgen"
 	language "C++"
 	cppdialect "C++17"
 	staticruntime "off"
-
 	location "%{wks.location}/ProjectFiles"	
-	targetdir ( bindir .. "/%{prj.name}")
-	objdir ( intdir .. "/%{prj.name}")
+	targetdir (libdir .. "/%{prj.name}")
+	objdir (intdir .. "/%{prj.name}")
 	
 	files
 	{

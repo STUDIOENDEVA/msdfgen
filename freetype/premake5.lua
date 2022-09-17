@@ -4,10 +4,9 @@ project "Freetype"
     staticruntime "Off"
     warnings "off"
     location "%{wks.location}/ProjectFiles"
-
-    targetdir ( bindir .. "/%{prj.name}")
-    objdir ( intdir .. "/%{prj.name}")
-
+    targetdir (libdir .. "/%{prj.name}")
+    objdir (intdir .. "/%{prj.name}")
+    
     files
     {
         "src/autofit/autofit.c",
