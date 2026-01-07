@@ -4,10 +4,10 @@ project "msdfgen"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "off"
-	location "%{wks.location}/ProjectFiles"	
-	targetdir (libdir .. "/%{prj.name}")
-	objdir (intdir .. "/%{prj.name}")
+	staticruntime "On"
+	location (path.join(project_root, "build"))
+	targetdir ("%{bindir}/%{prj.name}")
+	objdir ("%{intdir}/%{prj.name}")
 	
 	files
 	{
@@ -34,8 +34,11 @@ project "msdfgen"
 
 	links
 	{
-		"freetype"
+		"Freetype"
 	}
+
+	filter "system:linux or system:macosx"
+		pic "On"
 
 	filter "configurations:Debug"
             runtime "Debug"

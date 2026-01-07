@@ -1,11 +1,11 @@
 project "Freetype"
     kind "StaticLib"
     language "C"
-    staticruntime "Off"
+    staticruntime "On"
     warnings "off"
-    location "%{wks.location}/ProjectFiles"
-    targetdir (libdir .. "/%{prj.name}")
-    objdir (intdir .. "/%{prj.name}")
+    location (path.join(project_root, "build"))
+    targetdir ("%{bindir}/%{prj.name}")
+    objdir ("%{intdir}/%{prj.name}")
     
     files
     {
@@ -14,6 +14,7 @@ project "Freetype"
         "src/cff/cff.c",
         "src/base/ftbase.c",
         "src/base/ftbitmap.c",
+        "src/base/ftdebug.c",
         "src/cache/ftcache.c",
         "src/base/ftfstype.c",
         "src/base/ftgasp.c",
@@ -46,12 +47,8 @@ project "Freetype"
         "src/cid/type1cid.c",
         "src/type42/type42.c",
         "src/winfonts/winfnt.c",
-        "src/sdf/**.h",
-        "src/sdf/**.c",
-	"src/svg/svg.c",
-	"src/svg/svgtypes.h",
-	"src/svg/ftsvg.c",
-	"src/svg/ftsvg.h",
+        "src/sdf/sdf.c",
+        "src/svg/svg.c",
         "include/ft2build.h",
         "include/freetype/config/ftconfig.h"
     }
@@ -65,17 +62,15 @@ project "Freetype"
     {
         "_CRT_SECURE_NO_WARNINGS",
         "_LIB",
-        "FT2_BUILD_LIBRARY",
-	"WIN32",
+        "FT2_BUILD_LIBRARY"
     }
-    
+
+    filter "system:linux or system:macosx"
+        pic "On"
+
     filter "system:windows"
         systemversion "latest"
-
-        files
-        {
-            "builds/windows/ftdebug.c"
-        }
+        defines { "WIN32" }
 
     filter "configurations:Debug"
         runtime "Debug"
